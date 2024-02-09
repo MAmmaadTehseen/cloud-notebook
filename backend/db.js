@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://localhost:27017/'
 
-const connectToMongo = () => {
-    mongoose.connect(mongoURI, () => {
-        console.log('connected to mongoose succesfully')
-    })
+async function connectToMongo() {
+    await mongoose.connect(mongoURI).then(() => console.log("Connected to Mongo Successfully"));
 }
-mongoose.exports = connectToMongo;
+
+module.exports = connectToMongo;
