@@ -14,10 +14,15 @@ router.post('/', [
     }
 
     //create auser using post
-    console.log(req.body);
-    const user = User(req.body);
-    user.save();
-    res.send('hello')
+    User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    }).then(user => res.json(user)).
+        catch(err => {
+            console.log(err)
+            res.json({ error: 'please enter another mail', message: err.message })
+        })
 })
 
 module.exports = router
