@@ -44,7 +44,7 @@ router.post('/createuser', [
     }
     catch (err) {
         console.error(error.message);
-        res.status(500).send("some error occured")
+        res.status(500).send("Some error occured")
     }
 })
 module.exports = router
