@@ -10,6 +10,7 @@ const jwT_Secret = "ammadisagoodb$oy"
 // creating a route
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
+
     body('email', 'Enter a valid email').isEmail(),
     body('password').isLength({ min: 8 })
 ], async (req, res) => {
