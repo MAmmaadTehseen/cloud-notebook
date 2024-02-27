@@ -4,8 +4,8 @@ const router = express.Router();
 const User = require('../models/User')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-const jwT_Secret = "ammadisagoodb$oy"
+var fetchuser = require('../Middleware/fetchuser');
+const jwT_Secret = "ammadisagoodb$oy";
 
 // creating a route using post :/api/auth/createUser
 router.post('/createuser', [
@@ -86,11 +86,15 @@ router.post('/login', [
 })
 
 // creating a route  for loging using post :/api/auth/getUser
-router.post('/getUser', [
-    body('email', 'Enter a valid email').isEmail(),
-    body('password', 'password cannot be blank').exists()
-], async (req, res) => {
-
+router.post('/getUser', fetchuser, async (req, res) => {
+    try {
+        userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(user)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Some error occured")
+    }
 
 })
 module.exports = router
