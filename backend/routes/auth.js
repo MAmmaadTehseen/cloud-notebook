@@ -81,7 +81,7 @@ router.post('/login', [
     }
     catch (err) {
         console.error(error.message);
-        res.status(500).send("Some error occured")
+        res.status(500).send(" Try again Some error occured")
     }
 })
 
@@ -93,7 +93,7 @@ router.post('/getUser', fetchuser, async (req, res) => {
         res.send(user)
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Some error occured")
+        res.status(500).send(" Try again Some error occured")
     }
 
 })
