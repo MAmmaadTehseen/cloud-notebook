@@ -81,7 +81,7 @@ router.post('/login', [
     }
     catch (err) {
         console.error(error.message);
-        res.status(500).send(" Try again Some error occured")
+        res.status(500).send("Try again Some error occured")
     }
 })
 
