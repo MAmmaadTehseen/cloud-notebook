@@ -40,5 +40,38 @@ router.post('/addnote', fetchuser, [
     }
 })
 
+//route 3: update notes using put: /api/notes/updatenotes
+router.put('/updatenotes/:id', fetchuser, async (req, res) => {
+    const { title, description, tag } = req.body;
+    //create new note
+    const newNote = {};
+    if (title) { newNote.title = title }
+    if (description) { newNote.description = description }
+    if (tag) { newNote.tag = tag }
 
+    //find the note to be updated and update it
+    let note = await Note.findById(req.params.id);
+    if (!note) { return res.status(404).send("Not Found") }
+    if (note.user.toString() != req.user.id) {
+        return res.status(401).send("Not Allowed")
+    }
+    note = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+    res.json(newNote)
+
+})
+
+
+//route 4: update notes using delete: /api/notes/deletenotes
+router.delete('/deletenotes/:id', fetchuser, async (req, res) => {
+
+    //find the note to be deleted and delete it
+    let note = await Note.findById(req.params.id);
+    if (!note) { return res.status(404).send("Not Found") }
+    if (note.user.toString() != req.user.id) {
+        return res.status(401).send("Not Allowed")
+    }
+    note = await Note.findByIdAndDelete(req.params.id)
+    res.json({ "success": "deleted successfully", note: note })
+
+})
 module.exports = router;
