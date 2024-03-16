@@ -9,11 +9,12 @@ import {
   Routes
 } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
     <>
       <Router>
         <Navbar />
+
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
